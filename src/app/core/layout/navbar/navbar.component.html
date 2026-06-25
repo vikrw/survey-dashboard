@@ -1,0 +1,33 @@
+  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-white/10 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        
+        <!-- Logo / Title -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center shadow-lg shadow-primary/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 tracking-tight">SurveyPro</span>
+        </div>
+
+        <!-- Links -->
+        @if (currentUser()) {
+          <div class="flex items-center space-x-1 sm:space-x-4">
+            <a routerLink="/builder" routerLinkActive="text-primary bg-primary/10" class="text-text-muted hover:text-white hover:bg-white/5 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Builder
+            </a>
+            <a routerLink="/dashboard" routerLinkActive="text-primary bg-primary/10" class="text-text-muted hover:text-white hover:bg-white/5 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Dashboard
+            </a>
+            <div class="h-6 w-px bg-white/10 mx-2"></div>
+            <button (click)="logout()" class="text-text-muted hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Logout
+            </button>
+          </div>
+        }
+
+      </div>
+    </div>
+  </nav>

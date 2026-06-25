@@ -1,0 +1,74 @@
+<div class="min-h-screen bg-background pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    
+    @if (survey(); as s) {
+      <div class="mb-10 text-center">
+        <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-primary inline-block">
+          {{ s.title }}
+        </h1>
+      </div>
+
+      <div class="space-y-6">
+        @for (q of s.questions; track q.id; let i = $index) {
+          <div class="bg-surface border border-white/5 p-6 rounded-2xl shadow-xl">
+            <h3 class="text-lg font-medium text-white mb-4">{{ i + 1 }}. {{ q.title }}</h3>
+            
+            @if (q.type === 'Text') {
+              <input type="text" 
+                     [ngModel]="answers()[q.id]" 
+                     (ngModelChange)="updateAnswer(q.id, $event)"
+                     class="w-full bg-background border border-white/10 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                     placeholder="Your answer...">
+            } @else if (q.type === 'Multiple Choice') {
+              <div class="space-y-3">
+                @for (opt of q.options; track opt) {
+                  <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white/5 rounded-lg transition-colors">
+                    <input type="radio" 
+                           [name]="q.id"
+                           [value]="opt"
+                           [ngModel]="answers()[q.id]" 
+                           (ngModelChange)="updateAnswer(q.id, $event)"
+                           class="w-4 h-4 text-primary bg-background border-white/20 accent-primary cursor-pointer">
+                    <span class="text-white">{{ opt }}</span>
+                  </label>
+                }
+              </div>
+            } @else if (q.type === 'Checkbox') {
+              <div class="space-y-3">
+                @for (opt of q.options; track opt) {
+                  <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white/5 rounded-lg transition-colors">
+                    <input type="checkbox" 
+                           (change)="toggleCheckbox(q.id, opt, $event)"
+                           class="w-4 h-4 text-primary bg-background border-white/20 rounded cursor-pointer accent-primary">
+                    <span class="text-white">{{ opt }}</span>
+                  </label>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mt-8 flex justify-end">
+        <button (click)="submit()" 
+                [disabled]="isSubmitting()"
+                class="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white font-medium py-3 px-8 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center min-w-[150px] disabled:opacity-50">
+          @if (isSubmitting()) {
+            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Submitting...
+          } @else {
+            Submit Survey
+          }
+        </button>
+      </div>
+    } @else {
+      <div class="flex flex-col items-center justify-center h-64">
+        <svg class="animate-spin h-10 w-10 text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-text-muted animate-pulse">Loading Survey...</p>
+      </div>
+    }
+  </div>
+</div>
