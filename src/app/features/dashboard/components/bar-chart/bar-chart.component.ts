@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, OnChanges, SimpleChanges, viewChild, effect } from '@angular/core';
+import { Component, ElementRef, input, viewChild, effect, HostListener, signal } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -10,9 +10,16 @@ import * as d3 from 'd3';
 export class BarChartComponent {
   chartContainer = viewChild<ElementRef>('chartContainer');
   data = input<any[]>([]);
+  resizeSignal = signal(0);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.resizeSignal.update(n => n + 1);
+  }
 
   constructor() {
     effect(() => {
+      this.resizeSignal(); // Track window resizes
       const currentData = this.data();
       const container = this.chartContainer();
       if (container && currentData && currentData.length > 0) {

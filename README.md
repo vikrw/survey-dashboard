@@ -4,7 +4,7 @@ SurveyPro is a modern, responsive web application for creating surveys and analy
 
 ## Setup Instructions
 
-1. **Prerequisites**: Ensure you have Node.js (v18+) and npm installed.
+1. **Prerequisites**: Ensure you have Node.js (v26) and npm installed.
 2. **Clone and Install**:
    ```bash
    git clone git@github.com:vikrw/survey-dashboard.git
@@ -22,7 +22,7 @@ SurveyPro is a modern, responsive web application for creating surveys and analy
 
 The application is built using a modern, scalable technology stack:
 
-- **Frontend Framework**: **Angular 19** utilizing the latest features, including Standalone Components, Signals (`signal`, `computed`, `effect`), and the experimental `resource()` API for reactive asynchronous data fetching.
+- **Frontend Framework**: **Angular 22** utilizing the latest features, including Standalone Components, Signals (`signal`, `computed`, `effect`), and the experimental `resource()` API for reactive asynchronous data fetching.
 - **State Management**: Local state (such as managing the dynamic list of questions in the Survey Builder) is handled using a custom Angular Injectable store (`survey.store.ts`) powered by Signals.
 - **Styling**: **Tailwind CSS** is used for utility-first styling. The design system heavily leverages CSS variables, backdrop-blurs for glassmorphism, and custom gradient animations to achieve a premium UI.
 - **Backend & Database**: **Firebase Realtime Database** is used for storing survey definitions and responses. **Firebase Authentication** handles user sessions (login/signup).
